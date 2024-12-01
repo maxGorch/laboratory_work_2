@@ -10,5 +10,6 @@ public class TestTask {
     {
        StringProcessor test = new StringProcessor();
        assertEquals("Строчка должна повториться N кол-во раз",test.multiplyString("A",5),"AAAAA");
+        assertEquals("Строчка должна быть пустой",test.multiplyString("A",0),"");
     }
 }
