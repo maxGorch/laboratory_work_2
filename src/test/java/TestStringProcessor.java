@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestTask {
+public class TestStringProcessor {
 
     @Test
     public void TestMultiplyString()
