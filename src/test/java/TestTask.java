@@ -1,40 +1,41 @@
 import org.example.StringProcessor;
 import org.junit.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import static org.junit.Assert.assertEquals;
 
 public class TestTask {
 
-        @Test
+    @Test
     public void TestMultiplyString()
-            // Для задачи №1
+    // Для задачи №1
     {
-       StringProcessor test = new StringProcessor();
-       assertEquals(
-               "Строчка должна повториться N кол-во раз",
-               test.multiplyString("A",5),
-               "AAAAA"
-       );
+        StringProcessor test = new StringProcessor();
+        assertEquals(
+                "Строчка должна повториться N кол-во раз",
+                test.multiplyString("A", 5),
+                "AAAAA"
+        );
         assertEquals(
                 "Строчка должна быть пустой",
-                test.multiplyString("A",0),
+                test.multiplyString("A", 0),
                 ""
         );
         assertThrows(
                 IllegalArgumentException.class,
                 () -> {
-            test.multiplyString("AAAA", -1);
-        }
+                    test.multiplyString("AAAA", -1);
+                }
         );
     }
-@Test
-    public void TestAmountString2intoString1()
-    {
+
+    @Test
+    public void TestAmountString2intoString1() {
         StringProcessor test = new StringProcessor();
         assertEquals(
                 "В строчке должно быть заданое кол-во подстрок",
-                test.amountString2intoString1("hellohello","hello"),
+                test.amountString2intoString1("hellohello", "hello"),
                 2
         );
         assertThrows(
@@ -51,5 +52,22 @@ public class TestTask {
                     test.amountString2intoString1("hello", "");
                 }
         );
+    }
+
+    @Test
+    public void TestNewStringFromOldString() {
+        StringProcessor test = new StringProcessor();
+        assertEquals(
+                "В строке должна быть строчка состоящая из 1 || 2 || 3",
+                test.newStringFromOldString("123 123"),
+                "одиндватри одиндватри"
+        );
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            test.newStringFromOldString(null);
+        });
+        assertThrows(IllegalArgumentException.class, () -> {
+            test.newStringFromOldString("");
+        });
     }
 }
