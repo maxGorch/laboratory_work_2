@@ -12,10 +12,16 @@ public class FinanceReport
     Payment[] payments;
     String SNM_creator_payments;
     int date_created_payments;
-    FinanceReport(Payment[] payments,String SNM_creator_payments,int date_created_payments)
+    public FinanceReport(Payment[] payments,String SNM_creator_payments,int date_created_payments)
     {
-        this.payments = payments;
-        this.SNM_creator_payments = SNM_creator_payments;
+        if(payments == null || payments.length ==0)
+        {
+            throw new IllegalArgumentException("Массив не может быть не инициализирован и его длина должна быть больше 0!");
+        }else this.payments = payments;
+        if(SNM_creator_payments == null || SNM_creator_payments.isEmpty())
+        {
+            throw new IllegalArgumentException("Строчка должна быть не null и не быть пустой!");
+        }else this.SNM_creator_payments = SNM_creator_payments;
         this.date_created_payments = date_created_payments;
     }
     public int getLengthPayments()
@@ -24,10 +30,16 @@ public class FinanceReport
     }
     public Payment getIndexPayments(int index)
     {
-        return payments[index];
+        if(index < 0 || index > payments.length)
+        {
+            throw new IndexOutOfBoundsException("i-элемент должен быть больше нуля и не превышать значения основного массива!");
+        }else return payments[index];
     }
     public void setIndexPayments(int index, Payment newPayment)
     {
-        payments[index]=newPayment;
+        if(index < 0 || index > payments.length)
+        {
+            throw new IndexOutOfBoundsException("i-элемент должен быть больше нуля и не превышать значения основного массива!");
+        }else payments[index]=newPayment;
     }
 }
