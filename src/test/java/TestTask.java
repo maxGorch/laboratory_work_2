@@ -9,7 +9,6 @@ public class TestTask {
 
     @Test
     public void TestMultiplyString()
-    // Для задачи №1
     {
         StringProcessor test = new StringProcessor();
         assertEquals(
@@ -29,9 +28,9 @@ public class TestTask {
                 }
         );
     }
-
     @Test
-    public void TestAmountString2intoString1() {
+    public void TestAmountString2intoString1()
+    {
         StringProcessor test = new StringProcessor();
         assertEquals(
                 "В строчке должно быть заданое кол-во подстрок",
@@ -53,9 +52,9 @@ public class TestTask {
                 }
         );
     }
-
     @Test
-    public void TestNewStringFromOldString() {
+    public void TestNewStringFromOldString()
+    {
         StringProcessor test = new StringProcessor();
         assertEquals(
                 "В строке должна быть строчка состоящая из 1 || 2 || 3",
@@ -68,6 +67,30 @@ public class TestTask {
         });
         assertThrows(IllegalArgumentException.class, () -> {
             test.newStringFromOldString("");
+        });
+    }
+    @Test
+    public void TestModificationStringBuilder()
+    {
+        StringProcessor test = new StringProcessor();
+        StringBuilder sb_test_1 = new StringBuilder("abc defg");
+        StringBuilder sb_test_2 = new StringBuilder("abcde");
+
+        test.modificationStringBuilder(sb_test_1);
+        assertEquals(
+                sb_test_1.toString(),
+                "acdf"
+        );
+        test.modificationStringBuilder(sb_test_2);
+        assertEquals(
+                sb_test_2.toString(),
+                "ace"
+        );
+        assertThrows(IllegalArgumentException.class, () -> {
+            test.modificationStringBuilder(null);
+        });
+        assertThrows(IllegalArgumentException.class, () -> {
+            test.modificationStringBuilder(new StringBuilder());
         });
     }
 }
