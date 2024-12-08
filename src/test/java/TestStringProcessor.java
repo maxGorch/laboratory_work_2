@@ -37,6 +37,12 @@ public class TestStringProcessor {
                 test.amountString2intoString1("hellohello", "hello"),
                 2
         );
+        assertEquals(
+                "В строчке должно быть заданое кол-во подстрок",
+                test.amountString2intoString1("ababababa", "aba"),
+                //Доделать пересечение в подстроках
+                4
+        );
         assertThrows(
                 IllegalArgumentException.class,
                 () -> {
@@ -75,7 +81,7 @@ public class TestStringProcessor {
         StringProcessor test = new StringProcessor();
         StringBuilder sb_test_1 = new StringBuilder("abc defg");
         StringBuilder sb_test_2 = new StringBuilder("abcde");
-
+        StringBuilder sb_test_3 = new StringBuilder("a");
         test.modificationStringBuilder(sb_test_1);
         assertEquals(
                 sb_test_1.toString(),
@@ -85,6 +91,11 @@ public class TestStringProcessor {
         assertEquals(
                 sb_test_2.toString(),
                 "ace"
+        );
+        test.modificationStringBuilder(sb_test_3);
+        assertEquals(
+                sb_test_3.toString(),
+                "a"
         );
         assertThrows(IllegalArgumentException.class, () -> {
             test.modificationStringBuilder(null);

@@ -35,7 +35,7 @@ public class StringProcessor {
             int index = 0;
             while ((index = s1.indexOf(s2, index)) != -1) {
                 count++;
-                index += s2.length();
+                index++;
             }
             return count;
         }
