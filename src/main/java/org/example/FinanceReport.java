@@ -12,25 +12,6 @@ public class FinanceReport
 // получение количества платежей,
 // доступ к i му платежу (на чтение и запись).
 {
-    public static void main(String[] args) {
-        FinanceReport new_report;
-        Payment user_1 = new Payment("Не изменялось",12,2,2000,15345);
-        Payment user_2 = new Payment("Не изменялось",25,4,2014,352345);
-        Payment user_3 = new Payment("Не изменялось",5,6,2020,5435);
-
-        Payment[] payments = {user_1, user_2, user_3};
-        new_report = new FinanceReport(payments,"Максим Юрьевич", 8,12,2024);
-
-        FinanceReport COPY_new_report = new FinanceReport(new_report);
-
-        user_1.setSNM("Изменение");
-
-        String old_str_report = new_report.toString();
-        String new_str_report = COPY_new_report.toString();
-        System.out.println(old_str_report);
-        System.out.println(new_str_report);
-
-    }
     Payment[] payments;
     String SNM_creator_payments;
     int payment_date;//  дата  платежа — число,

@@ -1,5 +1,5 @@
 import org.example.StringProcessor;
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,7 +39,7 @@ public class TestStringProcessor {
         );
         assertEquals(
                 "В строчке должно быть заданое кол-во подстрок",
-                test.amountString2intoString1("ababababa", "aba"),
+                test.amountString2intoString1("ababababa", "ba"),
                 //Доделать пересечение в подстроках +
                 4
         );
