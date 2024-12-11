@@ -117,12 +117,8 @@ public class Payment
 
     @Override
     public String toString() {
-        return "Payment{" +
-                "SNM='" + SNM + '\'' +
-                ", payment_date=" + payment_date +
-                ", month=" + month +
-                ", year=" + year +
-                ", payment_amount=" + payment_amount +
-                '}';
+        return "[ Плательщик: " + SNM +
+                ", дата: " + payment_date +'.' + month +'.' + year +
+                ", сумма: " + payment_amount/100 + "руб." + payment_amount%100 +"коп."+"]";
     }
 }

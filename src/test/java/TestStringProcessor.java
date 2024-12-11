@@ -40,7 +40,7 @@ public class TestStringProcessor {
         assertEquals(
                 "В строчке должно быть заданое кол-во подстрок",
                 test.amountString2intoString1("ababababa", "aba"),
-                //Доделать пересечение в подстроках
+                //Доделать пересечение в подстроках +
                 4
         );
         assertThrows(

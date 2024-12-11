@@ -13,14 +13,9 @@ public class TestPayment {
         assertEquals(
                 "Нужно задать имя и все основные цифры для подачи документа",
                 new_payment.toString(),
-                "Payment{" +
-                        "SNM='ГМЮ"  + '\'' +
-                        ", payment_date=1" +
-                        ", month=12" +
-                        ", year=2024" +
-                        ", payment_amount=1500" +
-                        '}'
-
+                "[ Плательщик: ГМЮ" +
+                ", дата: 1.12.2024" +
+                ", сумма: 15руб." + "0коп."+"]"
         );
 
         assertThrows(IllegalArgumentException.class, () -> {
