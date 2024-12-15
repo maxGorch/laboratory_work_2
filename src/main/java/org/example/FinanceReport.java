@@ -161,7 +161,7 @@ public class FinanceReport
                 throw new NullPointerException("Массив не может быть не инициализирован и его длина должна быть больше 0!");
             }else str_payments.append(i);
         }
-        return "[Автор: ФИО составителя " + this.SNM_creator_payments + '\'' +
+        return "[Автор: " + this.SNM_creator_payments + '\'' +
                 ", дата: " + this.payment_date +'.' + this.month +'.' + this.year +
                 ", Платежи: [ \n" + str_payments +
                 "]";

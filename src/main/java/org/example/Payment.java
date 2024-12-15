@@ -119,6 +119,6 @@ public class Payment
     public String toString() {
         return "[ Плательщик: " + SNM +
                 ", дата: " + payment_date +'.' + month +'.' + year +
-                ", сумма: " + payment_amount/100 + "руб." + payment_amount%100 +"коп."+"]";
+                ", сумма: " + payment_amount/100 + "руб." + payment_amount%100 +"коп."+"]\n";
     }
 }
