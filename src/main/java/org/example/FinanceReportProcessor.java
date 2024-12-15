@@ -1,6 +1,9 @@
 package org.example;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FinanceReportProcessor
 // TODO: Задание №11
 //  Создайте новый класс FinanceReportProcessor, в котором реализуйте статические  методы,
@@ -21,14 +24,14 @@ public class FinanceReportProcessor
         String old_str_report = new_report.toString();
         System.out.println(old_str_report);
 
-        Payment[] valuePayments = FinanceReportProcessor.getPaymentsChar(new_report,'м');
+        List<Payment> valuePayments = FinanceReportProcessor.getPaymentsChar(new_report,'м');
         int id1 = 1;
         for (Payment i : valuePayments)
         {
             System.out.println("№"+ id1++ +" Начинается следующий плательщик: \t"+i);
         }
         System.out.println();
-        Payment[] minPayments = FinanceReportProcessor.getPaymentsOnMinPayment(new_report,100000);
+        List<Payment> minPayments = FinanceReportProcessor.getPaymentsOnMinPayment(new_report,100000);
         int id2 = 1;
         for (Payment i : minPayments)
         {
@@ -37,59 +40,37 @@ public class FinanceReportProcessor
     }
 
 
-    public static Payment[] getPaymentsChar(FinanceReport obj, char user_char)
+    public static List<Payment> getPaymentsChar(FinanceReport obj, char user_char)
     {
+
+        List <Payment> paymentStartChar = new ArrayList<>();
+
         Payment old_payment;
         String str_forPaymentChar = "";
-        int counter1 = 0;
         for (int i = 0; i < obj.getLengthPayments(); i++)
         {
             old_payment = obj.getIndexPayments(i);
             str_forPaymentChar = old_payment.getSNM();
             if(str_forPaymentChar.startsWith(String.valueOf(user_char).toUpperCase()))
             {
-                counter1++;
-            }
-
-        }
-        Payment[] paymentStartChar = new Payment[counter1];
-        int counter2=0;
-        for (int i = 0; i < obj.getLengthPayments(); i++)
-        {
-            old_payment = obj.getIndexPayments(i);
-            str_forPaymentChar = old_payment.getSNM();
-            if(str_forPaymentChar.toUpperCase().startsWith(String.valueOf(user_char).toUpperCase()))
-            {
-                paymentStartChar[counter2++] = obj.getIndexPayments(i);
+                paymentStartChar.add(old_payment);
             }
 
         }
         return paymentStartChar;
     }
-    public static Payment[] getPaymentsOnMinPayment(FinanceReport obj, int user_payment)
+    public static List<Payment> getPaymentsOnMinPayment(FinanceReport obj, int user_payment)
     {
         Payment old_payment;
         int int_forMinPayment;
-        int counter1 = 0;
+        List <Payment> paymentsOnMinPayment = new  ArrayList<>();
         for (int i = 0; i < obj.getLengthPayments(); i++)
         {
             old_payment = obj.getIndexPayments(i);
             int_forMinPayment = old_payment.getPayment_amount();
             if(int_forMinPayment<user_payment)
             {
-                counter1++;
-            }
-
-        }
-        Payment[] paymentsOnMinPayment = new Payment[counter1];
-        int counter2=0;
-        for (int i = 0; i < obj.getLengthPayments(); i++)
-        {
-            old_payment = obj.getIndexPayments(i);
-            int_forMinPayment = old_payment.getPayment_amount();
-            if(int_forMinPayment<user_payment)
-            {
-                paymentsOnMinPayment[counter2++] = obj.getIndexPayments(i);
+                paymentsOnMinPayment.add(obj.getIndexPayments(i));
             }
 
         }
