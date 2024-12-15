@@ -19,15 +19,43 @@ public class TestFinanceReportProcessor {
     List<Payment> expected = new ArrayList<>();
 
     @Test
-    public void TestGetPaymentsChar()
-    {
-        expected.add(user_2);
+    public void TestGetPaymentsChar() {
+
+       expected.add(user_2);
+
         assertEquals(
-                FinanceReportProcessor.getPaymentsChar(new_report,'м'),
+                FinanceReportProcessor.getPaymentsChar(new_report,'М'),
                 expected,
-                "Ожидалось что будет плетельщики начинающиеся с определенной буквы"
+                "Должно быть выведены Платежи у которых ФИО начинается с конкретной буквы"
                 );
-        assertThrows()
+
+        assertThrows(IllegalArgumentException.class, () ->
+                //Проверка на значение объекта null
+
+                FinanceReportProcessor.getPaymentsChar(null,'И'), "Expected: что передаваемый объект не null!");
+        assertThrows(IllegalArgumentException.class, () ->
+                //Проверка на значение символа isEmpty
+                FinanceReportProcessor.getPaymentsChar(new_report,'\u0000'), "Expected: что передаваемый символ пуст!");
+    }
+
+    @Test
+    public void TestGetPaymentsOnMinPayment() {
+
+        expected.add(user_1);
+        expected.add(user_3);
+
+        assertEquals(
+                FinanceReportProcessor.getPaymentsOnMinPayment(new_report,100000),
+                expected,
+                "Должно быть выведены Платежи у которых задолженность меньше указанной суммы"
+                );
+
+        assertThrows(IllegalArgumentException.class, () ->
+                //Проверка на значение объекта null
+                FinanceReportProcessor.getPaymentsOnMinPayment(null,'И'), "Expected: что передаваемый объект не null!");
+        assertThrows(IllegalArgumentException.class, () ->
+                //Проверка на значение символа isEmpty
+                FinanceReportProcessor.getPaymentsOnMinPayment(new_report,-10000), "Expected: что передаваемый символ пуст!");
     }
 
 }
