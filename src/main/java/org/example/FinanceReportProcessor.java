@@ -1,10 +1,15 @@
 package org.example;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FinanceReportProcessor
 // TODO: Задание №11
 //  Создайте новый класс FinanceReportProcessor, в котором реализуйте статические  методы,
 //  все методы возвращают объект класса FinanceReport:
+//  1) получение платежей всех людей, чья фамилия начинается на указанный символ  (символ — входной параметр),
+//  2) получение всех платежей, размер которых меньше заданной величины.
 {
     public static void main(String[] args) {
         FinanceReport new_report;
@@ -19,104 +24,93 @@ public class FinanceReportProcessor
         String old_str_report = new_report.toString();
         System.out.println(old_str_report);
 
-        Payment[] valuePayments = null,
-                minPayments = null;
+        List<Payment> valuePayments = null;
+        List<Payment> minPayments = null;
+        int id1 = 1, id2 = 1;
+
         try {
-            valuePayments = FinanceReportProcessor.getPaymentsChar(new_report,'И');
-            minPayments = FinanceReportProcessor.getPaymentsOnMinPayment(new_report, 100000);
+            minPayments = FinanceReportProcessor.getPaymentsOnMinPayment(new_report, -50000);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            throw new RuntimeException(e);
-        } finally {
-            int id1 = 1;
-            assert valuePayments != null;
-            System.out.println("Метод getPaymentsChar:");
-            for (Payment i : valuePayments) {
-                System.out.println("№" + id1++ + " Начинается следующий плательщик: \t" + i);
-            }
-            int id2 = 1;
+        }
+        finally {
             assert minPayments != null;
-            System.out.println("Метод getPaymentsOnMinPayment:");
-            for (Payment i : minPayments) {
-                System.out.println("№" + id2++ + " Начинается следующий плательщик: \t" + i);
+            try {
+                for (Payment i : minPayments) {
+                    System.out.println("№" + id2++ + " Начинается следующий плательщик: \t" + i);
+                }
+            }catch (Exception e)
+            {
+                System.out.println(e.getMessage());
             }
+        }
+
+
+        try {
+            valuePayments = FinanceReportProcessor.getPaymentsChar(new_report, '\u0000');
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        finally {
+            assert valuePayments != null;
+            try {
+                for (Payment i : valuePayments) {
+                    System.out.println("№" + id1++ + " Начинается следующий плательщик: \t" + i);
+                }
+            }catch (Exception e)
+            {
+                System.out.println(e.getMessage());
+            }
+            System.out.println();
         }
     }
 
 
-    public static Payment[] getPaymentsChar(FinanceReport obj, char user_char)
-    //TODO:1) получение платежей всех людей, чья фамилия начинается на указанный символ  (символ — входной параметр),
-    {
+
+    public static List<Payment> getPaymentsChar(FinanceReport obj, char user_char) {
         if (obj == null || user_char == '\u0000') {
             throw new IllegalArgumentException("Expected: obj == null" +
                     " or user_char is Empty");
         } else {
+            List<Payment> paymentStartChar = new ArrayList<>();
+
             Payment old_payment;
             String str_forPaymentChar;
-            int counter1 = 0;
+
             for (int i = 0; i < obj.getLengthPayments(); i++) {
-                if (i > obj.getLengthPayments()) {
-                    throw new ArrayIndexOutOfBoundsException("Index in obj.length() вышел за пределы!");
-                } else {
-                    old_payment = obj.getIndexPayments(i);
-                    str_forPaymentChar = old_payment.getSNM();
-                    if (str_forPaymentChar.startsWith(String.valueOf(user_char).toUpperCase())) {
-                        counter1++;
-                    }
-                }
-            }
-            Payment[] paymentStartChar = new Payment[counter1];
-            int counter2 = 0;
-            for (int i = 0; i < obj.getLengthPayments(); i++) {
-                if (i > obj.getLengthPayments()) {
-                    throw new ArrayIndexOutOfBoundsException("Index in obj.length() вышел за пределы!");
-                } else {
-                    old_payment = obj.getIndexPayments(i);
-                    str_forPaymentChar = old_payment.getSNM();
-                    if (str_forPaymentChar.toUpperCase().startsWith(String.valueOf(user_char).toUpperCase())) {
-                        paymentStartChar[counter2++] = obj.getIndexPayments(i);
-                    }
+
+                old_payment = obj.getIndexPayments(i);
+                str_forPaymentChar = old_payment.getSNM();
+
+                if (str_forPaymentChar.startsWith(String.valueOf(user_char).toUpperCase())) {
+                    paymentStartChar.add(old_payment);
                 }
             }
             return paymentStartChar;
         }
     }
 
-    public static Payment[] getPaymentsOnMinPayment(FinanceReport obj, int user_payment)
-    //TODO:2) получение всех платежей, размер которых меньше заданной величины.
-    {
+    public static List<Payment> getPaymentsOnMinPayment(FinanceReport obj, int user_payment) {
         if (obj == null || user_payment < 0) {
             throw new IllegalArgumentException("Expected: obj == null" +
                     " or user_payment <0");
         } else {
+            List<Payment> paymentsOnMinPayment = new ArrayList<>();
+
             Payment old_payment;
             int int_forMinPayment;
-            int counter1 = 0;
+
             for (int i = 0; i < obj.getLengthPayments(); i++) {
-                if (i > obj.getLengthPayments()) {
-                    throw new ArrayIndexOutOfBoundsException("Index in obj.length() вышел за пределы!");
-                } else {
-                    old_payment = obj.getIndexPayments(i);
-                    int_forMinPayment = old_payment.getPayment_amount();
-                    if (int_forMinPayment < user_payment) {
-                        counter1++;
-                    }
-                }
-            }
-            Payment[] paymentsOnMinPayment = new Payment[counter1];
-            int counter2 = 0;
-            for (int i = 0; i < obj.getLengthPayments(); i++) {
-                if (i > obj.getLengthPayments()) {
-                    throw new ArrayIndexOutOfBoundsException("Index in obj.length() вышел за пределы!");
-                } else {
-                    old_payment = obj.getIndexPayments(i);
-                    int_forMinPayment = old_payment.getPayment_amount();
-                    if (int_forMinPayment < user_payment) {
-                        paymentsOnMinPayment[counter2++] = obj.getIndexPayments(i);
-                    }
+
+                old_payment = obj.getIndexPayments(i);
+                int_forMinPayment = old_payment.getPayment_amount();
+
+                if (int_forMinPayment < user_payment) {
+                    paymentsOnMinPayment.add(obj.getIndexPayments(i));
                 }
             }
             return paymentsOnMinPayment;
         }
+
     }
 }
